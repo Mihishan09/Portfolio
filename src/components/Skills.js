@@ -14,6 +14,9 @@ const Skills = () => {
   ];
 
   useEffect(() => {
+    // FIX 1: Copy sectionRef.current to a local variable for cleanup
+    const currentRef = sectionRef.current;
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -23,90 +26,92 @@ const Skills = () => {
       { threshold: 0.2 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
 
   return (
-    <section id="skills" ref={sectionRef} className="section-padding bg-dark">
+    <section id="skills" ref={sectionRef} className="section-padding bg-dark overflow-hidden">
+      {/* FIX 2: Replace <style jsx> with a standard <style> tag to avoid DOM warnings */}
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-up {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+      `}</style>
+
       <div className="container-custom">
-        {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
             My <span className="gradient-text">Skills</span>
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto"></div>
+          <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
         </div>
 
-        {/* Skills Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {skills.map((skill, index) => (
             <div 
               key={skill.name}
-              className="glass-effect p-8 rounded-2xl card-hover"
+              className={`glass-effect p-8 rounded-2xl card-hover ${isVisible ? 'animate-fade-up' : ''}`}
               style={{ 
                 animationDelay: `${index * 0.1}s`,
-                animation: isVisible ? 'fadeInUp 0.6s ease-out forwards' : 'none',
                 opacity: 0
               }}
             >
-              {/* Skill Name */}
               <div className="text-center mb-6">
                 <h3 className="text-xl font-semibold text-white mb-2">{skill.name}</h3>
               </div>
 
-              {/* Circular Progress */}
               <div className="relative w-32 h-32 mx-auto mb-4">
                 <svg className="transform -rotate-90 w-32 h-32">
                   <circle
-                    cx="64"
-                    cy="64"
-                    r="56"
-                    stroke="currentColor"
-                    strokeWidth="8"
-                    fill="transparent"
+                    cx="64" cy="64" r="56"
+                    stroke="currentColor" strokeWidth="8" fill="transparent"
                     className="text-gray-700"
                   />
                   <circle
-                    cx="64"
-                    cy="64"
-                    r="56"
-                    stroke="url(#gradient-${index})"
+                    cx="64" cy="64" r="56"
+                    // FIX 3: Ensure URL template strings are clean
+                    stroke={`url(#grad-${index})`}
                     strokeWidth="8"
                     fill="transparent"
-                    strokeDasharray={`${2 * Math.PI * 56}`}
-                    strokeDashoffset={isVisible ? `${2 * Math.PI * 56 * (1 - skill.percentage / 100)}` : `${2 * Math.PI * 56}`}
+                    strokeDasharray={2 * Math.PI * 56}
+                    strokeDashoffset={isVisible ? 2 * Math.PI * 56 * (1 - skill.percentage / 100) : 2 * Math.PI * 56}
                     strokeLinecap="round"
                     className="transition-all duration-1000 ease-out"
                     style={{ transitionDelay: `${index * 0.1}s` }}
                   />
                   <defs>
-                    <linearGradient id={`gradient-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" className={`text-${skill.color.split('-')[1]}-500`} stopColor="currentColor" />
-                      <stop offset="100%" className={`text-${skill.color.split('-')[3]}-500`} stopColor="currentColor" />
+                    <linearGradient id={`grad-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="rgb(59, 130, 246)" />
+                      <stop offset="100%" stopColor="rgb(6, 182, 212)" />
                     </linearGradient>
                   </defs>
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-3xl font-bold">
-                    {isVisible ? (
-                      <span className="gradient-text">{skill.percentage}%</span>
-                    ) : (
-                      '0%'
-                    )}
+                  <span className="text-2xl font-bold text-white">
+                    {isVisible ? `${skill.percentage}%` : '0%'}
                   </span>
                 </div>
               </div>
 
-              {/* Progress Bar Alternative (for better gradient support) */}
-              <div className="relative">
+              <div className="relative mt-4">
                 <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
                   <div 
                     className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out`}
@@ -121,19 +126,6 @@ const Skills = () => {
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </section>
   );
 };
