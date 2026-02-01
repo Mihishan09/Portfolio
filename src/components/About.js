@@ -2,73 +2,72 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section id="about" className="section-padding bg-dark-light">
-      <div className="container-custom">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            About <span className="gradient-text">Me</span>
-          </h2>
-          <div className="w-20 h-1 bg-primary mx-auto"></div>
-        </div>
+    <section id="about" className="section-padding bg-dark relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
-        {/* Content */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Image */}
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary to-pink-500 rounded-2xl blur-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
-            <div className="relative">
-              <img 
-                src="/images/My pic.jpg" 
-                alt="Mihishan Gunasekara" 
-                className="w-full rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent rounded-2xl opacity-60"></div>
+      <div className="container-custom">
+        <div className="flex flex-col lg:flex-row gap-16 items-start">
+
+          {/* Left Side - Sticky Header */}
+          <div className="lg:w-1/3 lg:sticky lg:top-32">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              About <br />
+              <span className="gradient-text">Me</span>
+            </h2>
+            <div className="w-20 h-1.5 bg-primary rounded-full mb-8"></div>
+            <p className="text-gray-400 text-lg leading-relaxed mb-8">
+              I'm a passionate software engineering undergraduate with a love for creating beautiful, functional digital experiences.
+            </p>
+            <div className="inline-flex flex-col gap-4">
+              <div className="flex items-center gap-4 text-gray-300">
+                <span className="w-2 h-2 rounded-full bg-primary"></span>
+                Based in Sri Lanka
+              </div>
+              <div className="flex items-center gap-4 text-gray-300">
+                <span className="w-2 h-2 rounded-full bg-secondary"></span>
+                Available for Freelance
+              </div>
             </div>
           </div>
 
-          {/* Text Content */}
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold mb-6">
-              Hi There<span className="text-primary">!</span>
-            </h3>
-            
-            <p className="text-gray-300 text-lg leading-relaxed">
-              I'm a passionate and motivated undergraduate software engineering student at{' '}
-              <a 
-                href="https://www.cinec.edu/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:underline font-medium"
-              >
-                CINEC Campus
-              </a>
-              . With a strong focus on front-end development and UI/UX design, I specialize in building modern, responsive web and mobile applications using technologies like React.js, Flutter, HTML, CSS, and Figma.
-            </p>
-            
-            <p className="text-gray-300 text-lg leading-relaxed">
-              As a self-driven learner and an active contributor in tech clubs and extracurriculars, I'm always looking to push the boundaries of what's possible in digital development and design. I'm open to exciting opportunities where I can continue to grow, collaborate, and create meaningful software solutions.
-            </p>
+          {/* Right Side - Bento Grid */}
+          <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-6 pt-6">
-              <div className="glass-effect p-6 rounded-xl text-center transform hover:scale-105 transition-all duration-300">
-                <div className="text-4xl font-bold text-primary mb-2">10+</div>
-                <div className="text-gray-400 text-sm">Projects Completed</div>
-              </div>
-              <div className="glass-effect p-6 rounded-xl text-center transform hover:scale-105 transition-all duration-300">
-                <div className="text-4xl font-bold text-primary mb-2">3+</div>
-                <div className="text-gray-400 text-sm">Years Experience</div>
-              </div>
+            {/* Main Bio Card */}
+            <div className="md:col-span-2 glass-card p-8">
+              <h3 className="text-2xl font-bold mb-4 text-white">Who I Am</h3>
+              <p className="text-gray-400 leading-relaxed mb-4">
+                I am currently studying Software Engineering at <a href="https://www.cinec.edu/" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-white transition-colors">CINEC Campus</a>. My journey in tech started with a curiosity for how things work, which quickly evolved into a passion for building them myself.
+              </p>
+              <p className="text-gray-400 leading-relaxed">
+                I specialize in front-end development using React,Next.js,React Native and Full stack developement. I believe that good code should be invisible – users should only experience the seamless functionality and beautiful design it powers.
+              </p>
             </div>
 
-            <a 
-              href="/Mihishan Gunasekara.pdf" 
-              download
-              className="inline-block btn-outline mt-6"
-            >
-              Download CV
-            </a>
+            {/* Stats Card */}
+            <div className="glass-card p-8 flex flex-col justify-center items-center text-center group hover:bg-white/10 transition-colors">
+              <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 mb-2">10+</div>
+              <div className="text-primary font-medium">Projects Completed</div>
+            </div>
+
+            {/* Experience Card */}
+            <div className="glass-card p-8 flex flex-col justify-center items-center text-center group hover:bg-white/10 transition-colors">
+              <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 mb-2">3+</div>
+              <div className="text-primary font-medium">Years Experience</div>
+            </div>
+
+            {/* Tech Stack/Interests Card */}
+            <div className="md:col-span-2 glass-card p-8 bg-gradient-to-r from-primary/10 to-transparent">
+              <h3 className="text-xl font-bold mb-6 text-white">What I Do</h3>
+              <div className="flex flex-wrap gap-3">
+                {['React', 'React Native', 'Next.js', 'UI/UX Design', 'Figma', 'Node.js', 'HTML/CSS', 'Spring Boot'].map((skill, index) => (
+                  <span key={index} className="px-4 py-2 rounded-lg bg-dark border border-white/10 text-sm text-gray-300 hover:text-white hover:border-primary transition-colors">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

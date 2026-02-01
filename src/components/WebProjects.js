@@ -10,7 +10,7 @@ const WebProjects = () => {
       technologies: ['HTML', 'CSS', 'JavaScript'],
     },
     {
-      title: 'Table Reservation System',
+      title: 'Table Reservation',
       image: '/images/table res.png',
       description: 'Restaurant table reservation system with real-time availability',
       link: '#',
@@ -19,86 +19,68 @@ const WebProjects = () => {
   ];
 
   return (
-    <section id="web-projects" className="section-padding bg-dark-light">
+    <section id="web-projects" className="section-padding bg-dark relative">
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Web <span className="gradient-text">Projects</span>
+            More <span className="gradient-text">Projects</span>
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto"></div>
+          <div className="w-20 h-1.5 bg-primary rounded-full mx-auto mb-6"></div>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {projects.map((project, index) => (
-            <div 
+            <div
               key={index}
-              className="group relative glass-effect rounded-2xl overflow-hidden card-hover"
+              className="group glass-card overflow-hidden hover:border-primary/30"
             >
               {/* Image */}
-              <div className="relative h-64 overflow-hidden">
-                <img 
-                  src={project.image} 
+              <div className="relative h-56 overflow-hidden">
+                <div className="absolute inset-0 bg-dark-lighter animate-pulse"></div>
+                <img
+                  src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-60"></div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">
-                  {project.title}
-                </h3>
-                <p className="text-gray-400 mb-4">{project.description}</p>
+              <div className="p-8">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </div>
+
+                <p className="text-gray-400 mb-6 text-sm leading-relaxed">{project.description}</p>
 
                 {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, techIndex) => (
-                    <span 
+                    <span
                       key={techIndex}
-                      className="px-3 py-1 bg-dark text-xs rounded-full border border-primary text-primary"
+                      className="px-3 py-1 bg-white/5 text-xs font-medium rounded-full text-gray-300 border border-white/5"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-
-                {/* View Button */}
-                <a 
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-primary hover:text-white transition-colors duration-300 group/link"
-                >
-                  View Project
-                  <svg 
-                    className="w-5 h-5 ml-2 transform group-hover/link:translate-x-1 transition-transform duration-300" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </a>
               </div>
-
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 border-2 border-primary rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
             </div>
           ))}
-        </div>
-
-        {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <p className="text-gray-400 mb-6 text-lg">Interested in working together?</p>
-          <button 
-            onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-            className="btn-primary"
-          >
-            Let's Talk
-          </button>
         </div>
       </div>
     </section>
