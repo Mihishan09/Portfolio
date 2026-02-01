@@ -18,7 +18,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
-    
+
     // Simulate form submission
     setTimeout(() => {
       setStatus('success');
@@ -61,118 +61,54 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="section-padding bg-dark">
-      <div className="container-custom">
-        {/* Section Header */}
+    <section id="contact" className="section-padding bg-dark relative">
+      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+
+      <div className="container-custom relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Get In <span className="gradient-text">Touch</span>
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto"></div>
-          <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? Feel free to reach out!
+          <div className="w-20 h-1.5 bg-primary rounded-full mx-auto mb-6"></div>
+          <p className="text-gray-400 mt-4 max-w-2xl mx-auto text-lg">
+            Have a project in mind or want to collaborate? I'd love to hear from you.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
-          <div className="glass-effect p-8 rounded-2xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-dark-light border border-gray-700 rounded-lg focus:outline-none focus:border-primary transition-colors duration-300 text-white"
-                  placeholder="Your name"
-                />
-              </div>
+        <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto items-start">
+          {/* Contact Info Side */}
+          <div className="space-y-8">
+            <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-dark-light border border-gray-700 rounded-lg focus:outline-none focus:border-primary transition-colors duration-300 text-white"
-                  placeholder="your@email.com"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 bg-dark-light border border-gray-700 rounded-lg focus:outline-none focus:border-primary transition-colors duration-300 text-white resize-none"
-                  placeholder="Write your message..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={status === 'sending'}
-                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {status === 'sending' ? 'Sending...' : 'Send Message'}
-              </button>
-
-              {status === 'success' && (
-                <div className="p-4 bg-green-500 bg-opacity-10 border border-green-500 rounded-lg text-green-500 text-center">
-                  Message sent successfully!
-                </div>
-              )}
-            </form>
-          </div>
-
-          {/* Contact Info */}
-          <div className="space-y-6">
-            {contactInfo.map((info, index) => (
-              <div 
-                key={index}
-                className="glass-effect p-6 rounded-2xl transform hover:scale-105 transition-all duration-300"
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center text-primary">
+            <div className="space-y-6">
+              {contactInfo.map((info, index) => (
+                <div
+                  key={index}
+                  className="flex items-start gap-6 group"
+                >
+                  <div className="flex-shrink-0 w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                     {info.icon}
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-sm font-medium text-gray-400 mb-1">{info.label}</h3>
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 mb-1 tracking-wider uppercase">{info.label}</h4>
                     {info.href ? (
-                      <a 
+                      <a
                         href={info.href}
-                        className="text-white hover:text-primary transition-colors duration-300 break-words"
+                        className="text-lg text-white hover:text-primary transition-colors duration-300"
                       >
                         {info.value}
                       </a>
                     ) : (
-                      <p className="text-white break-words">{info.value}</p>
+                      <p className="text-lg text-white">{info.value}</p>
                     )}
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
 
             {/* Social Links */}
-            <div className="glass-effect p-6 rounded-2xl">
-              <h3 className="text-lg font-semibold mb-4">Connect With Me</h3>
+            <div className="pt-8 border-t border-white/10">
+              <h3 className="text-lg font-semibold mb-6 text-white">Connect With Me</h3>
               <div className="flex flex-wrap gap-4">
                 {[
                   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/mihishan-gunasekara-52a1342a0' },
@@ -184,13 +120,82 @@ const Contact = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-2 bg-dark-light border border-primary rounded-full text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                    className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-300"
                   >
                     {social.name}
                   </a>
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* Contact Form Side */}
+          <div className="glass-card p-8 md:p-10">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-dark-light/50 border border-white/10 rounded-xl focus:outline-none focus:border-primary focus:bg-dark-light transition-all duration-300 text-white placeholder-gray-600"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
+                    Your Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 bg-dark-light/50 border border-white/10 rounded-xl focus:outline-none focus:border-primary focus:bg-dark-light transition-all duration-300 text-white placeholder-gray-600"
+                    placeholder="john@example.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={4}
+                  className="w-full px-4 py-3 bg-dark-light/50 border border-white/10 rounded-xl focus:outline-none focus:border-primary focus:bg-dark-light transition-all duration-300 text-white placeholder-gray-600 resize-none"
+                  placeholder="Tell me about your project..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden"
+              >
+                <span className="relative z-10">{status === 'sending' ? 'Sending...' : 'Send Message'}</span>
+              </button>
+
+              {status === 'success' && (
+                <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 text-center text-sm font-medium animate-fade-in">
+                  Message sent successfully!
+                </div>
+              )}
+            </form>
           </div>
         </div>
       </div>
